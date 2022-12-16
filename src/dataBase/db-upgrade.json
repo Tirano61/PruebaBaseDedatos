@@ -1,0 +1,10 @@
+{
+    "version": 5,
+    "upgrades": {
+        "to_v2": [["ALTER TABLE tpesadas ADD COLUMN raza VCHAR(100);"]],
+        "to_v3": [["ALTER TABLE tpesadas ADD COLUMN tropa VCHAR(10);"]],
+        "to_v4": [["ALTER TABLE tpesadas ADD COLUMN estado VCHAR(1);"]],
+        "to_v5": [["ALTER TABLE tpesadas ADD COLUMN genero VCHAR(100);"]]
+        
+    }
+  }

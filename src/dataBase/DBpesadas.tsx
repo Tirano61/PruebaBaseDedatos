@@ -20,14 +20,14 @@ export class DBPesadas {
             this.fpLOTE     + " text," +
             this.fpCARAVANA + " text," +
             this.fpPESO     + " text"+");";
-
+   
     fecha: string;
     hora: string; 
     lote: string; 
     caravana: string; 
     peso: string;
 
-    constructor(fecha: string, hora: string, lote: string, caravana: string, peso: string)
+    constructor( fecha: string, hora: string, lote: string, caravana: string, peso: string, id?: string)
     {
         this.fecha    = fecha;
         this.lote     = lote;
@@ -35,5 +35,6 @@ export class DBPesadas {
         this.peso     = peso;
         this.hora     = hora;
     }   
+    
 
 }

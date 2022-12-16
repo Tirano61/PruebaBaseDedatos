@@ -1,40 +1,48 @@
 
 
 import React, {useState, useEffect} from 'react'
-import { View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { Text } from 'react-native-svg';
+import { View, Text, FlatList } from 'react-native';
 import { DBPesadas } from '../dataBase/DBpesadas';
-import { initDB } from '../dataBase/DBconection';
+import { getDBconection, getPesadas } from '../dataBase/DBconection';
+import { PesadasResponse } from '../interfaces/appInterfaces';
 
 
 export const PesdasScreen = () => {
     
-    const [pesadas, setPesadas] = useState<DBPesadas[]>([]);
+    const [pesadas, setPesadas] = useState<PesadasResponse[]>([]);
 
-    useEffect(() => { 
-    
+    useEffect(() => {
+        cargarPesadas();
     }, [])
     
-    const cargarPesadas = async() => {
-        const db = await initDB();
-        
+    const cargarPesadas = async() =>{
+        try {
+            const db = await getDBconection();
+            const resp = await getPesadas(db);
+            setPesadas(resp);
+            console.log(resp);
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
-        <View>
+        <View style={{flex: 1, marginHorizontal: 10}}>
             <FlatList 
                 data={ pesadas }
-                renderItem={ ({item}) =>  
-                    <View>
-                        <Text>{item.fecha}</Text>
-                        <Text>{item.hora}</Text>
-                        <Text>{item.peso}</Text>
+                renderItem={ ({item}) =>  (
+                    <View >
+                        <Text>{ item._id }</Text>
+                        <Text>{ item.fecha }</Text>
+                        <Text>{ item.hora }</Text>
+                        <Text>{ item.peso }</Text>
                     </View>
+                    ) 
                 }
-                keyExtractor={ (p, index) => p.peso + index }
+                keyExtractor={ (p) => p._id }
             />
-            <Text>{ JSON.stringify( '', null, 6 ) }</Text>
+            {/* <Text>{ JSON.stringify( pesadas, null, 6 ) }</Text> */}
         </View>
     )
 }

@@ -56,7 +56,7 @@ export const PrincipalScreen = ({navigation, route}: Props) => {
                 }]
             );
             
-            _db.close();
+            
             return resp;
             
         } catch (error) {
