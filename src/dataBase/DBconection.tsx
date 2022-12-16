@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { enablePromise, openDatabase, ResultSet, SQLiteDatabase } from "react-native-sqlite-storage";
+import { tags } from 'react-native-svg/lib/typescript/xml';
 import { DBPesadas } from './DBpesadas';
 
 enablePromise(true);
@@ -39,11 +40,21 @@ export const insertPesada = async(db:SQLiteDatabase, dbPesada: DBPesadas) => {
         '${dbPesada.caravana}',
         '${dbPesada.peso}'
     )`
-
     const resp = await db.executeSql(insert);
     return resp;
 }
 
+export const getPesadas = async(db: SQLiteDatabase) => {
+    let pesadas: DBPesadas[] = [];
+    const result = await db.executeSql(`SELECT fecha, hora, lote, caravana, peso FROM ${DBPesadas.tableNamePesadas}`);
+    result.forEach((resultSet) => {
+        for (let index = 0; index < resultSet.rows.length; index++) {
+            pesadas.push(resultSet.rows.item(index));
+            
+        }
+    });
+    return pesadas;
+}
 
 
 

@@ -20,20 +20,36 @@ export class DBPesadas {
             this.fpLOTE     + " text," +
             this.fpCARAVANA + " text," +
             this.fpPESO     + " text"+");";
-
+   
     fecha: string;
     hora: string; 
     lote: string; 
     caravana: string; 
     peso: string;
+    static id: string;
+    static fecha: string;
+    static hora: string;
+    static lote: string;
+    static caravana: string;
+    static peso: string;
 
-    constructor(fecha: string, hora: string, lote: string, caravana: string, peso: string)
+    constructor( fecha: string, hora: string, lote: string, caravana: string, peso: string, id?: string)
     {
+       
         this.fecha    = fecha;
         this.lote     = lote;
         this.caravana = caravana;
         this.peso     = peso;
         this.hora     = hora;
     }   
+    static getPesadas(id: string, fecha: string, hora: string, lote: string, caravana: string, peso: string)
+    {
+        this.id       = id;  
+        this.fecha    = fecha;
+        this.lote     = lote;
+        this.caravana = caravana;
+        this.peso     = peso;
+        this.hora     = hora;
+    }
 
 }
