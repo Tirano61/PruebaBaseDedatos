@@ -1,15 +1,25 @@
 
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Text } from 'react-native-svg';
 import { DBPesadas } from '../dataBase/DBpesadas';
+import { initDB } from '../dataBase/DBconection';
 
 
 export const PesdasScreen = () => {
     
     const [pesadas, setPesadas] = useState<DBPesadas[]>([]);
+
+    useEffect(() => { 
+    
+    }, [])
+    
+    const cargarPesadas = async() => {
+        const db = await initDB();
+        
+    }
 
     return (
         <View>
