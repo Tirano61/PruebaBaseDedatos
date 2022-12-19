@@ -10,6 +10,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { DBconection } from '../dataBase/DBconection';
 import { StackScreenProps } from '@react-navigation/stack';
+import { PesadasResponse } from '../interfaces/appInterfaces';
 
 type PesadasParams ={
     PrincipalScreen: undefined,
@@ -23,7 +24,7 @@ export const PrincipalScreen = ({navigation, route}: Props) => {
     const {peso} = useContext(PesoContext);
 
     useEffect(() => {
-       crearNuevaPesada();
+       //crearNuevaPesada();
     }, [])
 
     useEffect(() =>{
@@ -41,7 +42,17 @@ export const PrincipalScreen = ({navigation, route}: Props) => {
     },[])
 
     const crearNuevaPesada = async() => {   
-        const dbPesada = new DBPesadas('12/05/22','13:22:55','SD34','FS12323IG', `${peso}`);
+        const dbPesada: PesadasResponse = {
+            caravana: '111111',
+            estado: '12',
+            fecha: '12/12/2022',
+            genero: 'Macho',
+            hora: '12:12:12',
+            lote: 'L25',
+            peso: '2588',
+            raza: 'Brangus',
+            tropa: 'T456',
+        };
         try {
             
             const resp = await DBconection.db().insertPesada( dbPesada);

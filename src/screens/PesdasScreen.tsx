@@ -36,10 +36,11 @@ export const PesdasScreen = () => {
                         <Text>{ item.fecha }</Text>
                         <Text>{ item.hora }</Text>
                         <Text>{ item.peso }</Text>
+                        <Text>{ item.raza }</Text>
                     </View>
                     ) 
                 }
-                keyExtractor={ (p) => p._id }
+                keyExtractor={ (p) => p._id! }
             />
             {/* <Text>{ JSON.stringify( pesadas, null, 6 ) }</Text> */}
         </View>

@@ -10,10 +10,14 @@ export class DBPesadas {
     static fpLOTE: string     = "lote";
     static fpCARAVANA: string = "caravana";    
     static fpPESO: string     = "peso";
+    static fpRAZA : string    = "raza";
+    static fpTROPA : string   = "tropa";
+    static fpESTADO : string  = "estado";
+    static fpGENERO : string  = "genero";
 
 
     //************ CREAR TABLA PESADAS ***************//
-    static tabPesadas: string = "CREATE TABLE IF NOT EXISTS " + this.tableNamePesadas + "(" +
+    static createtTabPesadas: string = "CREATE TABLE IF NOT EXISTS " + this.tableNamePesadas + "(" +
             this.fpID       + " integer primary key autoincrement, " +
             this.fpFECHA    + " text," +
             this.fpHORA     + " text," +
@@ -26,6 +30,10 @@ export class DBPesadas {
     lote: string; 
     caravana: string; 
     peso: string;
+    raza?: string;
+    tropa?: string;
+    estado?: string;
+    genero?: string;
 
     constructor( fecha: string, hora: string, lote: string, caravana: string, peso: string, id?: string)
     {
