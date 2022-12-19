@@ -2,9 +2,8 @@
 
 import React, {useState, useEffect} from 'react'
 import { View, Text, FlatList } from 'react-native';
-import { DBPesadas } from '../dataBase/DBpesadas';
-import { getDBconection, getPesadas } from '../dataBase/DBconection';
 import { PesadasResponse } from '../interfaces/appInterfaces';
+import { DBconection } from '../dataBase/DBconection';
 
 
 export const PesdasScreen = () => {
@@ -17,8 +16,8 @@ export const PesdasScreen = () => {
     
     const cargarPesadas = async() =>{
         try {
-            const db = await getDBconection();
-            const resp = await getPesadas(db);
+          
+            const resp = await DBconection.db().getPesadas();
             setPesadas(resp);
             console.log(resp);
             

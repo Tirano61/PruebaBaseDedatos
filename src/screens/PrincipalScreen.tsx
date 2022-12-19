@@ -1,16 +1,15 @@
 
 
 import React, {useContext, useEffect} from 'react'
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, StyleSheet, View } from 'react-native';
 
 import { TextoPeso } from '../components/TextoPeso';
-import { getDBconection, insertPesada } from '../dataBase/DBconection';
 import { DBPesadas } from '../dataBase/DBpesadas';
 import { PesoContext } from '../contexts/PesoContext';
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
-import { PesdasScreen } from './PesdasScreen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { DBconection } from '../dataBase/DBconection';
+import { StackScreenProps } from '@react-navigation/stack';
 
 type PesadasParams ={
     PrincipalScreen: undefined,
@@ -40,14 +39,12 @@ export const PrincipalScreen = ({navigation, route}: Props) => {
             )
         })
     },[])
-    
-
 
     const crearNuevaPesada = async() => {   
         const dbPesada = new DBPesadas('12/05/22','13:22:55','SD34','FS12323IG', `${peso}`);
         try {
-            const _db = await getDBconection();
-            const resp = await insertPesada(_db, dbPesada);
+            
+            const resp = await DBconection.db().insertPesada( dbPesada);
             Alert.alert('Guardado',
                 `Pesada nº: ${resp[0].insertId}, guardada correctamente !!!`,
                 [{
@@ -55,10 +52,7 @@ export const PrincipalScreen = ({navigation, route}: Props) => {
                     onPress: () => {}
                 }]
             );
-            
-            
             return resp;
-            
         } catch (error) {
             console.log(error);
         }
@@ -68,6 +62,12 @@ export const PrincipalScreen = ({navigation, route}: Props) => {
         <View style={stylePorincipal.container}>
             
             <TextoPeso />
+            <View style={{flex: 1,alignItems: 'center', justifyContent: 'center'}}>
+                <Button 
+                    title='Guardar'
+                    onPress={() => crearNuevaPesada()}
+                />
+            </View>
             
         </View>
     )

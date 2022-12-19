@@ -4,7 +4,8 @@ import React, {useEffect} from 'react'
 import { StackNavigator } from './src/navigation/StackNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import { PesoProvider } from './src/contexts/PesoContext';
-import { initDB } from './src/dataBase/DBconection';
+import { DBconection } from './src/dataBase/DBconection';
+
 
 
 
@@ -12,7 +13,7 @@ export const App = () => {
   
   useEffect(() => {
     const init = async()=>{
-      await initDB();
+      await DBconection.db().getDataBase();
     };
     init();
   }, []);
