@@ -1,7 +1,7 @@
 
 
 import React from 'react'
-import { enablePromise, openDatabase, SQLiteDatabase, ResultSet } from 'react-native-sqlite-storage';
+import {  enablePromise, openDatabase, SQLiteDatabase, ResultSet } from 'react-native-sqlite-storage';
 import { PesadasResponse, VersionResponse } from '../interfaces/appInterfaces';
 import { DBPesadas } from './DBpesadas';
 import { DBversion } from './DBversion';
@@ -37,32 +37,31 @@ export class DBconection {
     }
     
     initDB  = async() => {
-        const db = await openDatabase({ name: this.DATA_BASE_NAME, location: 'default' });
-        db.transaction    
+        const db =  await openDatabase({ name: this.DATA_BASE_NAME, location: 'default' })
+         
         await db.executeSql( DBversion.createTabVersion );
         await db.executeSql( DBPesadas.createtTabPesadas );
 
-        let version: VersionResponse[] = await  this.buscarVersion(db);
-
-        console.log( 'SE OBTUBO LA VERSION : ', version );
-
-        if(!version[0].version){
-            this.insertarVersion(this.VERSION);
-            console.log( 'SE INSERTO LA VERSION UNO' );
-            version[0].version = '1';
-        }
-
-        if(+version[0].version < dbUpgrade.version){
-            upgradeFrom(db, version[0].version);
-            console.log( 'VERSION PARA ACTUALIZAR' );
-        }
+        this.buscarVersion(db).then((tx)=> {
             
-        
+            console.log( 'SE OBTUBO LA VERSION : ', tx[0].version );
+            if(!tx[0].version){
+                this.insertarVersion(this.VERSION, db);
+                console.log( 'SE INSERTO LA VERSION UNO' );
+                tx[0].version = '1';
+            }
+
+            if(+tx[0].version < dbUpgrade.version){
+                upgradeFrom(db, tx[0].version);
+                console.log( 'VERSION PARA ACTUALIZAR' );
+            }
+        });
+
         return db;
     }
 
     buscarVersion = async(db: SQLiteDatabase) =>{
-        const result = await db.executeSql(`SELECT MAX(tversion.version) AS 'version' FROM ${DBversion.tableNameVersion}`);
+        const result = await db.executeSql(`SELECT MAX(tversion.version) AS 'version' FROM '${DBversion.tableNameVersion}'`);
 
         let version: VersionResponse[] = [];
         result.forEach((resultSet) => {
@@ -113,13 +112,15 @@ export class DBconection {
         return resp;
     }
 
-    insertarVersion = async(version: number) => {
-        const db = await this.getDataBase();
+    insertarVersion = async(version: number, db: SQLiteDatabase) => {
+        // const db = await this.getDataBase();
         const ins = `INSERT INTO ${DBversion.tableNameVersion} 
         (
+            '${DBversion.fvID}',
             '${DBversion.fvVERSION}'
         ) values (
-            ${version}
+            '1',
+            '${version}'
         )`;
         const resp = await db.executeSql(ins);
         console.log(resp);

@@ -35,13 +35,20 @@ export class DBPesadas {
     estado?: string;
     genero?: string;
 
-    constructor( fecha: string, hora: string, lote: string, caravana: string, peso: string, id?: string)
+    constructor( fecha: string, hora: string, lote: string, caravana: string, peso: string, id?: string, raza?: string,
+        tropa?: string,
+        estado?: string,
+        genero?: string)
     {
         this.fecha    = fecha;
         this.lote     = lote;
         this.caravana = caravana;
         this.peso     = peso;
         this.hora     = hora;
+        this.raza     = raza;
+        this.tropa    = tropa;
+        this.estado   = estado;
+        this.genero   = genero;
     }   
     
 

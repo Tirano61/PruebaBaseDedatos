@@ -8,37 +8,23 @@ export const upgradeFrom = async(db: SQLiteDatabase, previousVersion: string) =>
 
     for (let i = 0; i < 1; i += 1) {
         
-        //let version:string[][] = "to_v3";
-      //let upgrade = dbupgrade.upgrades[`to_v${version}`];
-
       (Object.keys(dbupgrade.upgrades) as (keyof typeof dbupgrade.upgrades)[]).forEach((key,index) => {
 
          console.log("to_v" + version)
         if((key === `to_v${version}` ) && (version <= dbupgrade.version))
         {
-            let upgrade = dbupgrade.upgrades[key];
-            console.log(upgrade);
-            statements = [...statements, ...upgrade];
+          let upgrade = dbupgrade.upgrades[key];
+          console.log(upgrade);
+          
+          statements = [...upgrade];
+          db.executeSql(statements);
+          db.executeSql(`INSERT INTO tversion ('_id', 'version') VALUES ('${dbupgrade.version}', '${dbupgrade.version}')`)
+            .then(() => console.log('success'))
+            .catch(error => console.log(error));
         }
         version++;
 
       });
-
-     /* if (upgrade) {
-        statements = [...statements, ...upgrade];
-      } else {
-        break;
-      }
-*/
-      
-
-      
     }
-
-    statements = [...statements, ...[[`REPLACE into tversion (version) VALUES (${dbupgrade.version});`]]];
-     console.log(statements);
-    return db.executeSql(statements)
-                    .then(() => console.log('Success!'))
-                    .catch(error => console.log('Error:', error));
 
 }

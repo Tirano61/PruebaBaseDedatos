@@ -13,7 +13,7 @@ export class DBversion {
 
     //************ CREAR TABLA VERSIONES ***************//
     static createTabVersion: string = "CREATE TABLE IF NOT EXISTS " + this.tableNameVersion + "(" +
-            this.fvID         + " integer primary key autoincrement, " +
+            this.fvID         + " text, " +
             this.fvVERSION + " NUMERIC"+");";
    
     version: string;
