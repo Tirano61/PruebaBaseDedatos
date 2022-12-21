@@ -85,7 +85,7 @@ export class DBconection {
         return pesadas;
     }
 
-    insertPesada = async( dbPesada: DBPesadas ) => {
+    insertPesada = async( dbPesada: PesadasResponse ) => {
         const db = await this.getDataBase();
         const insert = `INSERT INTO ${DBPesadas.tableNamePesadas} (
             '${DBPesadas.fpFECHA}',
@@ -97,9 +97,10 @@ export class DBconection {
             '${DBPesadas.fpTROPA}',
             '${DBPesadas.fpESTADO}',
             '${DBPesadas.fpGENERO}'
+                
         ) values (
-            '${dbPesada.fecha}',
-            '${dbPesada.hora}',
+            CURRENT_DATE,
+            CURRENT_TIME,
             '${dbPesada.lote}',
             '${dbPesada.caravana}',
             '${dbPesada.peso}',

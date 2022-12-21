@@ -42,17 +42,18 @@ export const PrincipalScreen = ({navigation, route}: Props) => {
     },[])
 
     const crearNuevaPesada = async() => {   
-        const dbPesada = new DBPesadas (
-             '111111',
-             '12',
-             '12/12/2022',
-             'Macho',
-             '12:12:12',
-             'L25',
-             '2588',
-             'Brangus',
-             'T456'
-        );
+        const dbPesada: PesadasResponse =  {
+            fecha: '',
+            hora: '',
+            caravana: 'F00894CD',
+            estado: '3',
+            genero: 'MACHO',
+            lote: '345',
+            peso: peso.toString(),
+            raza: 'Brangus',
+            tropa: '345',
+        };
+        
         try {
             
             const resp = await DBconection.db().insertPesada( dbPesada);

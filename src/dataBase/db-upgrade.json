@@ -1,5 +1,5 @@
 {
-    "version": 1,
+    "version": 5,
     "upgrades": {
         "to_v2": [["ALTER TABLE tpesada ADD COLUMN raza TEXT;"]],
         "to_v3": [["ALTER TABLE tpesada ADD COLUMN tropa TEXT;"]],

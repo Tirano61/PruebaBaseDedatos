@@ -24,7 +24,6 @@ export const StackNavigator = () => {
       <Stack.Screen name="PrincipalScreen" component={PrincipalScreen} />
       <Stack.Screen name="ConfigScreen"    component={ConfigScreen} />
       <Stack.Screen name="PesdasScreen"    component={PesdasScreen} />
-
     </Stack.Navigator>
   );
 }

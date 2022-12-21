@@ -15,19 +15,18 @@ export const TextoPeso = () => {
   const {peso} = useContext(PesoContext);
   return (
     <View style={stylePeso.cajaPeso}>
-        <CircularProgress 
+        <CircularProgress
+            allowFontScaling={true} 
             duration={50}
             value={ peso }
             inActiveStrokeColor={'#5962E1'}
             activeStrokeColor={'#1C196CC6'}
             activeStrokeWidth={30}
-            radius={ 120 }
+            radius={ 160 }
             maxValue={ 5000 }
             progressValueColor={'#1B839D'}
             inActiveStrokeOpacity={0.2}
-            
-        />
-      
+        />      
     </View>
   )
 }
